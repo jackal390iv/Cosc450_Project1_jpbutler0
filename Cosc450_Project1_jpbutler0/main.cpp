@@ -100,21 +100,27 @@ int main(int argc, char** argv) {
             }
         }
 
-        printf("\n MATRIX A \n");
+        FILE *output;
+        output = fopen("/home/alfred/Desktop/output.txt", "w");
+
+        fprintf(output, "\n MATRIX A \n");
         for (f = 0; f < 5; f++) {
             for (k = 0; k < x; k++) {
-                printf("%d \t", matrix_A[f][k]);
+                fprintf(output, "%d \t", matrix_A[f][k]);
             }
-            printf("\n");
+            fprintf(output, "\n");
         }
 
-        printf("\n MATRIX B \n");
+        fprintf(output, "\n MATRIX B \n");
         for (f = 0; f < x; f++) {
             for (k = 0; k < 5; k++) {
-                printf("%d \t", matrix_B[f][k]);
+                fprintf(output, "%d \t", matrix_B[f][k]);
             }
-            printf("\n");
+            fprintf(output, "\n");
         }
+
+
+
 
     }
 
