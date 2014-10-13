@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
         printf("ERROR: failed to find data.txt file, please try again. \n");
         exit(0);
     } else {
-        printf("PASS: data.txt file has been found. \n");
+        //printf("PASS: data.txt file has been found. \n");
 
         struct stat st;
         stat(location, &st);
@@ -66,15 +66,11 @@ int main(int argc, char** argv) {
             fixed[k] = tmp;
         }
 
-        /*for (k = 0; k < size; k++) {
-            printf("%d\n", fixed[k]);
-        }*/
-
         if (!(size % 10 == 0)) {
             printf("ERROR: number of integers are not a multiple of 10, please try again.\n");
             exit(0);
         } else {
-            printf("PASS: number of integers is a multiple of 10.\n");
+            //printf("PASS: number of integers is a multiple of 10.\n");
         }
         fclose(file);
 
@@ -119,9 +115,43 @@ int main(int argc, char** argv) {
             fprintf(output, "\n");
         }
 
+        int matrix_C[x][x];
 
+        int total = 0;
+        int fix[x * x];
+        int arr[5];
+        int q;
+        count = 0;
+        for (q = 0; q < x; q++) {
+            for (f = 0; f < x; f++) {
+                for (k = 0; k < 5; k++) {
+                    arr[k] = matrix_B[q][k] * matrix_A[k][f];
+                }
+                for (tr = 0; tr < 5; tr++) {
+                    //printf("%d \t", arr[tr]);
+                    fix[count] = fix[count] + arr[tr];
+                }
+                //printf("\n %d \t", f);
+                //printf(" %d \n", fix[count]);
+                count++;
+            }
+        }
 
+        tr = 0;
+        for (f = 0; f < x; f++) {
+            for (k = 0; k < x; k++) {
+                matrix_C[k][f] = fix[tr];
+                tr++;
+            }
+        }
 
+        fprintf(output, "\n MATRIX C (MATRIX A * MATRIX B) \n");
+        for (f = 0; f < x; f++) {
+            for (k = 0; k < x; k++) {
+                fprintf(output, "%d \t", matrix_C[k][f]);
+            }
+            fprintf(output, "\n");
+        }
     }
 
     return 0;
