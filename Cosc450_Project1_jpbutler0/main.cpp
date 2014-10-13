@@ -152,6 +152,7 @@ int main(int argc, char** argv) {
             }
             fprintf(output, "\n");
         }
+        fclose(output);
     }
 
     return 0;
