@@ -36,19 +36,19 @@ int main(int argc, char** argv) {
 
         struct stat st;
         stat(location, &st);
-        int size = st.st_size;
+        long int size = st.st_size;
         char bef[size];
 
-        int array[size];
+        long int array[size];
 
-        int k = 0;
+        long int k = 0;
         while (!feof(file)) {
             fscanf(file, "%d", &array[k]);
             k++;
         }
 
-        int length = 0;
-        int count = 0;
+        long int length = 0;
+        long int count = 0;
         while ((count < 2)) {
             if (array[length] == 0) {
                 count++;
@@ -60,7 +60,7 @@ int main(int argc, char** argv) {
 
         size = length - 2;
 
-        int fixed[size];
+        long int fixed[size];
         for (k = 0; k < size; k++) {
             int tmp = array[k];
             fixed[k] = tmp;
@@ -75,12 +75,12 @@ int main(int argc, char** argv) {
         fclose(file);
 
         length = size / 2;
-        int x = length / 5;
-        int matrix_A[5][x];
-        int matrix_B[x][5];
+        long int x = length / 5;
+        long int matrix_A[5][x];
+        long int matrix_B[x][5];
 
-        int f;
-        int tr = 0;
+        long int f;
+        long int tr = 0;
         for (f = 0; f < 5; f++) {
             for (k = 0; k < x; k++) {
                 matrix_A[f][k] = fixed[tr];
@@ -115,20 +115,23 @@ int main(int argc, char** argv) {
             fprintf(output, "\n");
         }
 
-        int matrix_C[x][x];
+        long int matrix_C[5][5];
 
-        int total = 0;
-        int fix[x * x];
-        int arr[5];
-        int q;
+        long int total = 0;
+        long int fix[25];
+        long int arr[x];
+        long int q;
         count = 0;
+        for (tr = 0; tr < 25; tr++) {
+            fix[tr] = 0;
+        }
         for (q = 0; q < x; q++) {
-            for (f = 0; f < x; f++) {
-                for (k = 0; k < 5; k++) {
-                    arr[k] = matrix_B[q][k] * matrix_A[k][f];
+            for (f = 0; f < 5; f++) {
+                for (k = 0; k < x; k++) {
+                    arr[k] = matrix_A[q][k] * matrix_B[k][f];
                 }
-                for (tr = 0; tr < 5; tr++) {
-                    //printf("%d \t", arr[tr]);
+                for (tr = 0; tr < x; tr++) {
+                    //printf("%d, ", arr[tr]);
                     fix[count] = fix[count] + arr[tr];
                 }
                 //printf("\n %d \t", f);
@@ -138,16 +141,16 @@ int main(int argc, char** argv) {
         }
 
         tr = 0;
-        for (f = 0; f < x; f++) {
-            for (k = 0; k < x; k++) {
+        for (f = 0; f < 5; f++) {
+            for (k = 0; k < 5; k++) {
                 matrix_C[k][f] = fix[tr];
                 tr++;
             }
         }
 
         fprintf(output, "\n MATRIX C (MATRIX A * MATRIX B) \n");
-        for (f = 0; f < x; f++) {
-            for (k = 0; k < x; k++) {
+        for (f = 0; f < 5; f++) {
+            for (k = 0; k < 5; k++) {
                 fprintf(output, "%d \t", matrix_C[k][f]);
             }
             fprintf(output, "\n");
